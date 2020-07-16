@@ -21,7 +21,7 @@ const phrases = [
 
 // listen for the start game button to be pressed then display random phrase
 startGame.addEventListener('click', () => {
-  overlay.setAttribute('style', 'display:none;');
+  overlay.setAttribute('style', 'display:none');
   addPhraseToDisplay(getRandomPhrase(phrases));         
 });
 
@@ -36,30 +36,38 @@ function addPhraseToDisplay(arr) {
   for( let i = 0; i < arr.length; i++) {
     let li = document.createElement('li');
     li.textContent = arr[i];
-    if (arr[i] !== ' ') {
-      li.className = 'letter';
-    } else {
+    if (arr[i] === ' ') {
       li.className = 'space';
+    } else {
+      li.className = 'letter';
     }
   phraseUl.appendChild(li);
   }  
 }
 
-// check to see if the letter is in the phrase
-const checkLetter = button => {
+// listen of the onscreen keyboard to be clicked
+qwerty.addEventListener('click', (e) => {
+   if(e.target.tagName === 'BUTTON') {
+    const button = e.target;
+  }
 
-}
+    let letter = document.getElementsByClassName('letter');
+    let match = null;
+    for( let i = 0; i < letter.length; i++) {
+  if (button === letter[i].innerHTML){
+    letter[i].classList.add('show');
+    match = letter[i].innerHTML;
+  }
+  }
+    return match;  
+});
+
+
 
 // check if the game has been won or lost
 const checkWin = () => {
 
 }
-
-
-// listen of the onscreen keyboard to be clicked
-qwerty.addEventListener('click', e => {
-
-});
 
 
 
