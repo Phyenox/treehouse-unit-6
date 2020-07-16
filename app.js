@@ -50,9 +50,9 @@ function checkLetter(letter) {
   let checkLetter = document.getElementsByClassName('letter');
   let match = null;
   for( let i = 0; i < checkLetter.length; i++) {
-  if( letter === checkLetter[i].innerHTML) {
+  if( letter === checkLetter[i]) {
     checkLetter[i].classList.add('show');
-    match = checkLetter[i].innerHTML;
+    match = checkLetter[i];
   }
  }
  return match;
