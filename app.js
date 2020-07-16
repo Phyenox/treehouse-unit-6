@@ -45,21 +45,36 @@ function addPhraseToDisplay(arr) {
   }  
 }
 
-// listen of the onscreen keyboard to be clicked
+// Checking for letter
+function checkLetter(letter) {
+  let checkLetter = document.getElementsByClassName('letter');
+  let match = null;
+  for( let i = 0; i < checkLetter.length; i++) {
+  if( letter === checkLetter[i].innerHTML) {
+    checkLetter[i].classList.add('show');
+    match = checkLetter[i].innerHTML;
+  }
+ }
+ return match;
+}
+
+// listen of the onscreen keyboard to be clicked and remove hearts 
 qwerty.addEventListener('click', (e) => {
    if(e.target.tagName === 'BUTTON') {
     const button = e.target;
-  }
-
-    let letter = document.getElementsByClassName('letter');
-    let match = null;
-    for( let i = 0; i < letter.length; i++) {
-  if (button === letter[i].innerHTML){
-    letter[i].classList.add('show');
-    match = letter[i].innerHTML;
-  }
-  }
-    return match;  
+    button.classList.add('chosen');
+    button.disable = 'true';
+    const letterCheck = checkLetter;
+    if(letterCheck === null) {
+      missed +=1;
+      let heartsOl = document.getElementsByTagName('ol')[0];
+      let hearts = document.getElementsByClassName('tries');
+      hearts.parentNode.removeChild(last);
+      const lostHeart = createElement('li')
+      lostHeart.innerHTML = '<img src="images/lostHeart.png" height="35px" width="30px">';
+      heartsOl.appendChild(lostHeart);
+    }
+  }   
 });
 
 
