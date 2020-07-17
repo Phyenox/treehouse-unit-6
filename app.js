@@ -20,8 +20,10 @@ const phrases = [
 
 // listen for the start game button to be pressed then display random phrase
 startGame.addEventListener('click', () => {
+  if (startGame.textContent === 'Start Game') {
   overlay.setAttribute('style', 'display:none');
-  addPhraseToDisplay(getRandomPhrase(phrases));         
+  addPhraseToDisplay(getRandomPhrase(phrases)); 
+  }       
 });
 
 // get a random phrase from the phrases array
@@ -90,13 +92,6 @@ const checkWin = () => {
     overlay.classList.add('lose');
     overlay.textContent = 'Sorry, you lost.'
     overlay.style.display = 'flex';
-    startGame.style.display = 'show';
-
   }
 }
-
-function restart () {
-  
-}
-
 
