@@ -18,7 +18,6 @@ const phrases = [
     'venezuelan poodle moth'
 ];
 
-
 // listen for the start game button to be pressed then display random phrase
 startGame.addEventListener('click', () => {
   overlay.setAttribute('style', 'display:none');
@@ -49,8 +48,8 @@ function addPhraseToDisplay(arr) {
 function checkLetter(letter) {
   let checkLetter = document.getElementsByClassName('letter');
   let match = null;
-  for( let i = 0; i < checkLetter.length; i++) {
-  if( letter === checkLetter[i]) {
+  for( let i = 0; i < checkLetter.length; i++){
+  if( letter.textContent.toLowerCase() === checkLetter[i].textContent.toLowerCase()) {
     checkLetter[i].classList.add('show');
     match = checkLetter[i];
   }
@@ -62,27 +61,42 @@ function checkLetter(letter) {
 qwerty.addEventListener('click', (e) => {
    if(e.target.tagName === 'BUTTON') {
     const button = e.target;
+    button.disabled = true;
     button.classList.add('chosen');
-    button.disable = 'true';
-    const letterCheck = checkLetter;
+    const letterCheck = checkLetter(button);
     if(letterCheck === null) {
-      missed +=1;
-      let heartsOl = document.getElementsByTagName('ol')[0];
-      let hearts = document.getElementsByClassName('tries');
-      hearts.parentNode.removeChild(last);
-      const lostHeart = createElement('li')
+      missed += 1;
+      heart = document.querySelector('.tries');
+      let scoreboard = document.querySelector('#scoreboard ol');
+      scoreboard.removeChild(heart);
+      const lostHeart = document.createElement('li');
       lostHeart.innerHTML = '<img src="images/lostHeart.png" height="35px" width="30px">';
-      heartsOl.appendChild(lostHeart);
-    }
+      lostHeart.style.marginRight = '4px';
+      scoreboard.appendChild(lostHeart);
+    } 
   }   
+  checkWin();
 });
-
-
 
 // check if the game has been won or lost
 const checkWin = () => {
+  let total = document.getElementsByClassName('letter').length;
+  let correctLetters = document.getElementsByClassName('show').length;
+  if ( correctLetters === total) {
+    overlay.classList.add('win');
+    overlay.textContent = 'Congratulations, you won!';
+    overlay.style.display = 'flex';
+  } else if (missed > 4) {
+    overlay.classList.add('lose');
+    overlay.textContent = 'Sorry, you lost.'
+    overlay.style.display = 'flex';
+    startGame.style.display = 'show';
 
+  }
 }
 
+function restart () {
+  
+}
 
 
